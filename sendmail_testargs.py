@@ -71,14 +71,13 @@ FROM = senderemail
 SUBJECT = raw_input("Enter subject of email: ")
 bodyContents = open(args.body,'r').read()
 BODY = MIMEText(bodyContents, 'html')
-
 #####################################################
 #                                                   #
-#                  Email Attachments                #
+#                  Sending Attachments              #
 #                                                   #
 #####################################################
 
-
+echo("Enter attachment section.")
 
 #####################################################
 #                                                   #
@@ -118,8 +117,8 @@ for email in emails:
 		continue
 		
 	emailContext = MIMEMultipart()
-	emailContext['From'] = FROM
 	emailContext['To'] = email
+	emailContext['From'] = FROM
 	emailContext['Subject'] = SUBJECT
 	emailContext.attach(BODY)
 
@@ -132,6 +131,7 @@ for email in emails:
 		alreadydone.append(email)
 	except:
 		print("Failed to send email to "+email)
+		echo("Hi")
 		failed.write(email+"\n")
 
 os.system('cp Success '+'backups/Success'+time.ctime().replace(' ','-'))
